@@ -1,0 +1,19 @@
+{
+  "name": "touch-events",
+  "version": "0.0.1",
+  "homepage": "https://github.com/mo-lon/touch-events",
+  "description": "jQuery plugin to detect touch events",
+  "main": "./src/touch-events.js",
+  "keywords": [
+    "touch",
+    "events"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

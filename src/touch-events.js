@@ -1,0 +1,39 @@
+(function (factory) {
+    'use strict';
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS
+        module.exports = factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
+    'use strict';
+
+    $.event.special.doubletap = {
+        bindType: 'touchend',
+        delegateType: 'touchend',
+
+        handle: function(event) {
+            var handleObj = event.handleObj,
+                targetData = jQuery.data(event.target),
+                now = new Date().getTime(),
+                delta = targetData.lastTouch ? now - targetData.lastTouch : 0,
+                delay = delay === undefined ? 300 : delay;
+
+            if (delta < delay && delta > 30) {
+                targetData.lastTouch = null;
+                event.type = handleObj.origType;
+                ['clientX', 'clientY', 'pageX', 'pageY'].forEach(function(property) {
+                    event[property] = event.originalEvent.changedTouches[0][property];
+                });
+                handleObj.handler.apply(this, arguments);
+            } else {
+                targetData.lastTouch = now;
+            }
+        }
+    };
+}));
